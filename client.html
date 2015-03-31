@@ -1,0 +1,67 @@
+<html>
+<head>
+    <!--
+     * Author:      Gianluca Guarini
+     * Contact:     gianluca.guarini@gmail.com
+     * Website:     http://www.gianlucaguarini.com/
+     * Twitter:     @gianlucaguarini
+    -->
+    <title>Arduino and Nodejs</title>
+    <style>
+    center {
+        font-size: 100px;
+        font-family:arial;
+    }
+    </style>
+</head>
+<body>
+    <button>
+        Turn the light
+        <span>on</span>
+    </button>
+    <script src="socket.io/socket.io.js"></script>
+	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+        //var socket = io.connect('http://192.168.194.128:8000');
+        //var socket = io();
+        var socket = io('http://140.112.42.61:8000', {transports: ['websocket', 'polling', 'flashsocket']});
+        var $body = $('body');
+        var $btn = $('button');
+        var $lightStatus = $('span', $btn);
+        var lightStatus = 'on'; //set default status
+
+        var toggleLightStatus = function() {
+            lightStatus = lightStatus === 'off' ? 'on' : 'off'; // switch the lightStatus var ...
+            socket.emit('lightStatus', lightStatus); // pass its value to the nodejs server via websocket
+        }
+
+        var onSocketNotification = function(data) {
+            // display msg from arduino
+            var $div = $('<center>');
+            $div.html(data);
+            $body.append($div);
+
+            $div.delay(2000).fadeOut(function() {
+                $div.remove();
+            });
+
+            //filter
+            if(/on|off/gi.test(data)) {
+                $lightStatus.text(data);
+            }
+        };
+
+
+        // set listener
+        $btn.on('click', toggleLightStatus);
+        socket.on('notification', onSocketNotification);
+
+        //default light status
+        socket.emit('lightStatus', lightStatus);
+    </script>
+    <!--<script src="js/app.js"></script>-->
+
+    <script>
+</body>
+</html>
