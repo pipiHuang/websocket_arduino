@@ -7,6 +7,9 @@ function:
   = client(html) receive data from board
 
 NOTE: experiment in NAT environment
+VM的網路port forwarding 設定好了: 
+用實體IP，把VM的port用NAT設定導到host PC，host要裝 apache，我導到非80 port(ex:8000 port)，
+還有host防火牆要關掉(嚴格說是那個8000 port不能擋外面的連線)，這樣外網才能連進來8000port。
 
 solved problem:
 NAT port forwarding
