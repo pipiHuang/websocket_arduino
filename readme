@@ -1,4 +1,4 @@
-this is node.js + arduino + websocket technique code.
+This is node.js + arduino + websocket technique code.
 will use websocket api, serial api, http module and so on.
 reference others and write by myself!
 function: 
@@ -11,3 +11,12 @@ NOTE: experiment in NAT environment
 solved problem:
 NAT port forwarding
 CORS (different domain cannot access)
+
+Reference:
+1. Gianluca Guarini's Blog
+http://www.gianlucaguarini.com/blog/building-applications-with-arduino-and-nodejs/
+https://github.com/GianlucaGuarini/nodejs-arduino-example
+2. socket.io in chat room example
+http://socket.io/get-started/chat/
+3. doc http://socket.io/docs/
+
